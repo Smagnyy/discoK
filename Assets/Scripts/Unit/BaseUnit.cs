@@ -8,6 +8,10 @@ public enum States {Wall, Wait, Go, Idle, Hit, Raying, GoBack};
 
 public class BaseUnit : MonoBehaviour
 {
+
+    //////////// Звук
+    
+    AudioSource audioSrc;
     
     //////////// Действия
     
@@ -18,15 +22,16 @@ public class BaseUnit : MonoBehaviour
 
     List<IHitState> hit;
         
-    Iinputs iinputs;
+    public Iinputs iinputs;
 
     public Tile currentTile;
     
     /////////// Персонаж (хп + урон)    
     
     [SerializeField]
-    HealthBar hBar;
+    public HealthBar hBar;
     public int damage;
+    [SerializeField]
     public int hp = 10;
 
     public GameObject sprite;
@@ -45,7 +50,7 @@ public class BaseUnit : MonoBehaviour
 
     Vector2 lerpStart, lerpEnd;
 
-    
+    public bool canStep;
 
     GameObject rayedObj;
     
@@ -63,6 +68,8 @@ public class BaseUnit : MonoBehaviour
         walkToWall = GetComponentsInChildren<IWallState>().ToList();
         hit = GetComponentsInChildren<IHitState>().ToList();
         commons = GetComponentsInChildren<ICommonState>().ToList();
+
+        audioSrc = GetComponent<AudioSource>();
 
         hBar.UpdateHealthBar(hp,maxHp);
 
@@ -85,7 +92,12 @@ public class BaseUnit : MonoBehaviour
         {
             case States.Idle:
                 
-                direction = iinputs.Inp();
+                if(canStep || GetComponent<Player>())
+                {                    
+                    direction = iinputs.Inp();
+                    canStep = false;
+                }
+                    
                 //Debug.Log(direction);
                 if(direction != Vector2.zero)
                 {
@@ -149,8 +161,13 @@ public class BaseUnit : MonoBehaviour
             break;
 
             case States.Wait:
-            if((Vector2)spriteLerpTransform.position == lerpEnd) 
+            if((Vector2)spriteLerpTransform.position == lerpEnd)
+            {
+                direction = Vector2.zero;
                 state = States.Idle;
+            }
+
+                
             break;
         }
 
@@ -171,7 +188,10 @@ public class BaseUnit : MonoBehaviour
         hp -= _damage;
         hBar.UpdateHealthBar(hp,maxHp);
         StartCoroutine(Effects.Shake(5, sprite));
-
+        foreach (var item in commons)
+        {
+            item.Reset();
+        }
         if(hp<=0)
         {
             EnemySpawner.Instance.DeleteEnemyFromList(this);

@@ -205,12 +205,12 @@ TextureImporter:
       name: sprites_5
       rect:
         serializedVersion: 2
-        x: 17
-        y: 56
-        width: 6
-        height: 11
+        x: 16
+        y: 55
+        width: 9
+        height: 13
       alignment: 9
-      pivot: {x: 0.5863034, y: 0.02069716}
+      pivot: {x: 0.5085256, y: 0.093004666}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

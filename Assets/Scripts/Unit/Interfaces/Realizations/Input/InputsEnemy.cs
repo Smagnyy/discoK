@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InputsEnemy : MonoBehaviour, Iinputs
 {
-    Vector2[] directions = new Vector2[4] {new Vector2(0,1),new Vector2(0,-1),new Vector2(1,0),new Vector2(-1,0)};
+    List<Vector2> directions = new List<Vector2>{new Vector2(0,1),new Vector2(0,-1),new Vector2(1,0),new Vector2(-1,0)};
 
     //float timeBtwMoves = 1.5f;
 
@@ -12,25 +12,25 @@ public class InputsEnemy : MonoBehaviour, Iinputs
 
     bool canStep = false;
 
-    private void Awake() 
-    {
-        TurnManager.Turn += CanStep;
-    }
+   // private void Awake() 
+   // {
+   //     TurnManager.Turn += CanStep;
+   // }
 
     public Vector2 Inp()
     {
          
 
-        if(canStep)
-        {
-            canStep = false;
-            Debug.Log("new turn");
-            return Turn();
-            
-           
-        }
+        int i = Random.Range(0, directions.Count);
 
-        return Vector2.zero;
+        return directions[i];
+    }
+
+    public List<Vector2> PreTurn()
+    {
+        int i = Random.Range(0, directions.Count);
+
+        return directions;
     }
 
     public void CanStep()
@@ -46,9 +46,10 @@ public class InputsEnemy : MonoBehaviour, Iinputs
 
     Vector2 Turn()
     {
-        int i = Random.Range(0, directions.Length);
+        int i = Random.Range(0, directions.Count);
 
         return directions[i];
     }
-   
+
+    
 }

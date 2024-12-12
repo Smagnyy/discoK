@@ -9,13 +9,13 @@ public class Tile : MonoBehaviour
 {
     [SerializeField]
     Color steppedColor;
-    [SerializeField]
-    public int id;
+    //[SerializeField]
+    //public int id;
 
     int damage;
     public TMP_Text textOnTile;
 
-    
+    public List<Color> colors;
 
     [SerializeField]
     bool isPlayerStay;
@@ -66,6 +66,8 @@ public class Tile : MonoBehaviour
     public void ChangeColor()
     {       
         sprRend.color = steppedColor;
+        //sprRend.color = new Color(Random.Range(0f,1f),Random.Range(0f,1f),Random.Range(0f,1f));
+        //sprRend.color = colors[Random.Range(0, colors.Count)];
         Debug.Log("color code = " + sprRend.color);
     }
 

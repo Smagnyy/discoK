@@ -18,9 +18,15 @@ public class CommonStPlayerHeal : MonoBehaviour, ICommonState
         if(counter >= stepsForHeal)
         {
             _bUnit.hp++;
+            _bUnit.hBar.UpdateHealthBar(_bUnit.hp, _bUnit.maxHp);
+            Reset();
         }
     }
     
+    public void Reset()
+    {
+        counter = 0;
+    }
 
    
 }

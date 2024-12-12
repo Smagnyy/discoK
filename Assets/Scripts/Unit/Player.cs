@@ -55,14 +55,21 @@ public class Player : MonoBehaviour
     {   
         bool steppedOnOwnedTile = false;
         int numberOfSteppedTile = 0;
-        for (int i = 0; i < OwnedTiles.Count; i++)
+        //for (int i = 0; i < OwnedTiles.Count; i++)
+        //{
+        //    if(_steppedTile.id == OwnedTiles[i].id) 
+        //    {
+        //        steppedOnOwnedTile = true;
+        //        numberOfSteppedTile = i;                
+        //    }
+        //}
+
+        if(OwnedTiles.Contains(_steppedTile))
         {
-            if(_steppedTile.id == OwnedTiles[i].id)
-            {
-                steppedOnOwnedTile = true;
-                numberOfSteppedTile = i;                
-            }
+            steppedOnOwnedTile = true;
+            numberOfSteppedTile = OwnedTiles.IndexOf(_steppedTile);
         }
+            
 
         if(steppedOnOwnedTile)
         {

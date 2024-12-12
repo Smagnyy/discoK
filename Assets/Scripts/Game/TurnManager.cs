@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-    int turnsBeforeEnemyTurn = 3;
-    int defaultTurns =3;
+   // int turnsBeforeEnemyTurn = 3;
+   // int defaultTurns =3;
     public static event Action Turn; 
     
     
@@ -18,19 +18,29 @@ public class TurnManager : MonoBehaviour
 
     void StartEnemy()
     {
-        StartCoroutine(CountTurns());
+        //Turn?.Invoke();
+        //StartCoroutine(CountTurns());
+
+        StartCoroutine(DelayBeforeTurn());
     }
 
-    public IEnumerator CountTurns()
-    {
-        turnsBeforeEnemyTurn--;
+    //public IEnumerator CountTurns()
+    //{
+    //    turnsBeforeEnemyTurn--;
+//
+    //    if(turnsBeforeEnemyTurn<1)
+    //    {
+    //        yield return new WaitForSeconds(0.05f);
+    //        Turn?.Invoke();
+    //        turnsBeforeEnemyTurn = defaultTurns;
+    //    }
+    //     UI_main.Instance.UpdatePossibleStepsText(turnsBeforeEnemyTurn);
+    //}
 
-        if(turnsBeforeEnemyTurn<1)
-        {
-            yield return new WaitForSeconds(0.05f);
-            Turn?.Invoke();
-            turnsBeforeEnemyTurn = defaultTurns;
-        }
-         UI_main.Instance.UpdatePossibleStepsText(turnsBeforeEnemyTurn);
+    IEnumerator DelayBeforeTurn()
+    {
+        yield return new WaitForSeconds(0.05f);
+        Turn?.Invoke();
+        yield break;
     }
 }

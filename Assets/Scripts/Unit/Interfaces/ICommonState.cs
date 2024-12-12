@@ -5,4 +5,6 @@ using UnityEngine;
 public interface ICommonState 
 {
     void DoAction(BaseUnit _bUnit);
+
+    void Reset();
 }

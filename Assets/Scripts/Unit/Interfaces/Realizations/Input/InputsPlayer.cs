@@ -10,7 +10,7 @@ public class InputsPlayer : MonoBehaviour, Iinputs
     public static event Action Counter;
     
     //int possibleSteps;
-     [SerializeField]
+    // [SerializeField]
     //int maxPossibleSteps = 3;
 
     private void Awake() 
@@ -72,5 +72,10 @@ public class InputsPlayer : MonoBehaviour, Iinputs
 
         return Vector2.zero;
            
+    }
+
+    public List<Vector2> PreTurn()
+    {
+        throw new NotImplementedException();
     }
 }
