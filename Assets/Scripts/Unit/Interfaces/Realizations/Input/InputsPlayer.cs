@@ -28,8 +28,12 @@ public class InputsPlayer : MonoBehaviour, Iinputs
     Coroutine shakeCoroutine;
 
     public Vector2 Inp()
-    {    
-        Debug.Log("в корутине это" + shakeCoroutine);   
+    {   
+        if(GlobalValues.IsPlayerAlive)
+        {
+
+        
+        //Debug.Log("в корутине это" + shakeCoroutine);   
         Vector2 dir = Vector2.zero;
        
             //shakeCoroutine = null;
@@ -70,8 +74,9 @@ public class InputsPlayer : MonoBehaviour, Iinputs
        //     return Vector2.zero;
        // }      
 
+        
+        }    
         return Vector2.zero;
-           
     }
 
     public List<Vector2> PreTurn()

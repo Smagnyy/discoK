@@ -19,7 +19,7 @@ public class HealthBar : MonoBehaviour
 
     public void UpdateHealthBar(float _hp, float _maxHp)
     {
-        Debug.Log("hp = " + _hp/_maxHp);
+        //Debug.Log("hp = " + _hp/_maxHp);
         healthFill.value = _hp/_maxHp;
     }
 }

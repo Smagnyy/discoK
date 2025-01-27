@@ -95,7 +95,7 @@ public class EnemySpawner : MonoBehaviour
             Debug.Log("wave!");
         }
         Debug.Log("CONGRATULATIONS!");
-        UI_main.Instance.EnableCongrats();
+        UI_main.Instance.ShowCongratsScreen();
         currentWave++;
     }
 

@@ -9,6 +9,8 @@ public enum States {Wall, Wait, Go, Idle, Hit, Raying, GoBack};
 public class BaseUnit : MonoBehaviour
 {
 
+    public List<SpriteRenderer> bodyParts;
+
     //////////// Звук
     
     AudioSource audioSrc;
@@ -21,6 +23,8 @@ public class BaseUnit : MonoBehaviour
     List<IWallState> walkToWall;
 
     List<IHitState> hit;
+
+    List<IDeathState> deathStates;
         
     public Iinputs iinputs;
 
@@ -53,7 +57,15 @@ public class BaseUnit : MonoBehaviour
     public bool canStep;
 
     GameObject rayedObj;
+
+    public Transform objToFlip;
+
+    //public Animator animator;
     
+    public UnitAnimationController AnimContr;
+
+    public UnitSoundSys unitSoundSys;
+
     private void Awake() 
     {
         
@@ -68,8 +80,16 @@ public class BaseUnit : MonoBehaviour
         walkToWall = GetComponentsInChildren<IWallState>().ToList();
         hit = GetComponentsInChildren<IHitState>().ToList();
         commons = GetComponentsInChildren<ICommonState>().ToList();
+        deathStates = GetComponentsInChildren<IDeathState>().ToList();
 
-        audioSrc = GetComponent<AudioSource>();
+
+        //audioSrc = GetComponent<AudioSource>();
+        //animator = GetComponent<Animator>();
+        AnimContr = GetComponent<UnitAnimationController>();
+        unitSoundSys = GetComponent<UnitSoundSys>();
+
+
+        bodyParts.AddRange(GetComponentsInChildren<SpriteRenderer>());
 
         hBar.UpdateHealthBar(hp,maxHp);
 
@@ -87,11 +107,12 @@ public class BaseUnit : MonoBehaviour
 
     
     void Update()
-    {       
+    {
+            
         switch(state)
         {
             case States.Idle:
-                
+                //if(AnimContr != null)  AnimContr.StartAnimWithLock("Idle");  
                 if(canStep || GetComponent<Player>())
                 {                    
                     direction = iinputs.Inp();
@@ -106,6 +127,14 @@ public class BaseUnit : MonoBehaviour
                     {
                         item.DoAction(this);
                     }
+                    if(AnimContr != null)  
+                    {
+                        AnimContr.StartAnimWithLock("AttackBlTree"); //"AttackBlTree"
+                        AnimContr.animator.SetFloat("x",direction.x);
+                        AnimContr.animator.SetFloat("y",direction.y);
+                        
+                    }
+                    
                     state = States.Raying;              
                 }
             break;
@@ -120,7 +149,7 @@ public class BaseUnit : MonoBehaviour
 
             case States.Go:
                 currentTile.SetEmpty();
-                
+                if(unitSoundSys!= null) unitSoundSys.PlaySound();
                 transform.position = lerpEnd;
                 spriteLerpTransform.position = lerpStart;   
                 StartCoroutine(StaticLerpSteps.LerpStep(spriteLerpTransform, lerpStart, lerpEnd, speed));
@@ -164,6 +193,7 @@ public class BaseUnit : MonoBehaviour
             if((Vector2)spriteLerpTransform.position == lerpEnd)
             {
                 direction = Vector2.zero;
+                if(AnimContr != null)  AnimContr.StartAnim("Idle");
                 state = States.Idle;
             }
 
@@ -185,6 +215,7 @@ public class BaseUnit : MonoBehaviour
     
      public void DecreaseHP(int _damage)
     {
+        if(AnimContr != null)  AnimContr.StartAnimWithLock("GetDamage");
         hp -= _damage;
         hBar.UpdateHealthBar(hp,maxHp);
         StartCoroutine(Effects.Shake(5, sprite));
@@ -194,19 +225,31 @@ public class BaseUnit : MonoBehaviour
         }
         if(hp<=0)
         {
-            EnemySpawner.Instance.DeleteEnemyFromList(this);
+            //if(AnimContr != null)  AnimContr.StartAnimWithLock("Death");
+            //EnemySpawner.Instance.DeleteEnemyFromList(this);
             currentTile.SetEmpty();
-            Destroy(this.gameObject);
+            
+            if(deathStates.Count>0)
+                foreach (var item in deathStates)
+                {
+                    item.DoAction(this);
+                }
+
+            //Destroy(this.gameObject);
             
         }
     }  
 
     void FacingRight(Vector2 dir)
     {
-        if(dir.x > 0)
-            sprite.GetComponent<SpriteRenderer>().flipX = false;
-        else if (dir.x < 0)
-            sprite.GetComponent<SpriteRenderer>().flipX = true;
+        if(objToFlip!=null)
+        {
+            if(dir.x > 0)
+                objToFlip.localScale = new Vector3(1,1,1);//sprite.GetComponent<SpriteRenderer>().flipX = false;
+            else if (dir.x < 0)
+                objToFlip.localScale = new Vector3(-1,1,1);//sprite.GetComponent<SpriteRenderer>().flipX = true;
+        }
+        
     }
     
 }

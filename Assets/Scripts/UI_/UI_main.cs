@@ -10,12 +10,19 @@ public class UI_main : MonoBehaviour
     
     public static UI_main Instance;
 
+    public LoseScreenScript loseScreenSCR;
+
     public TMP_Text timerText;
     public TMP_Text possibleStepsText;
 
-    public RectTransform congratsObj;
-    public TMP_Text congratsText;
-    public Image congratsBackground;
+    ////////////////////////
+    public RectTransform congratsScreenObj;
+    public TMP_Text congratsScreenText;
+    public Image congratsScreenBackground;
+
+ 
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -23,11 +30,7 @@ public class UI_main : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+   
     public void UpdateTimerText(float _time)
     {
         timerText.text = "Timer " + string.Format("{0:0.0}",_time);
@@ -38,13 +41,15 @@ public class UI_main : MonoBehaviour
         possibleStepsText.text = "Possible steps " + _steps;
     }
 
-    public void EnableCongrats()
+    public void ShowCongratsScreen()
     {
-        congratsObj.gameObject.SetActive(true);
-        congratsBackground.color = new Color(0,0,0,0f);
+        congratsScreenObj.gameObject.SetActive(true);
+        congratsScreenBackground.color = new Color(0,0,0,0f);
         Color endColor = new Color(0,0,0,0.57f);
-        congratsBackground.DOColor(endColor, 1.14f);
+        congratsScreenBackground.DOColor(endColor, 1.14f);
 
     }
+
+    
     
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    BaseUnit baseUnit;
+    public BaseUnit baseUnit;
     public static Player Instance;
     public int maxNumberOfSteps;
     public List<Tile> OwnedTiles = new List<Tile>();
@@ -21,6 +21,12 @@ public class Player : MonoBehaviour
     void Start()
     {
         baseUnit.currentTile.SetPlayerOnThisTile();
+    }
+
+    void Update() 
+    {
+        if(Input.GetKeyDown(KeyCode.I))
+            baseUnit.DecreaseHP(1);
     }
 
     public void StepOnTile(Tile steppedTile)

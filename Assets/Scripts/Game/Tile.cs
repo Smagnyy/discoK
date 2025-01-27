@@ -68,7 +68,7 @@ public class Tile : MonoBehaviour
         sprRend.color = steppedColor;
         //sprRend.color = new Color(Random.Range(0f,1f),Random.Range(0f,1f),Random.Range(0f,1f));
         //sprRend.color = colors[Random.Range(0, colors.Count)];
-        Debug.Log("color code = " + sprRend.color);
+        //Debug.Log("color code = " + sprRend.color);
     }
 
     public void UnChangeColor()
