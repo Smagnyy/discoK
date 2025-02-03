@@ -10,6 +10,8 @@ public enum SoundTypes
 public class UnitSoundSys : MonoBehaviour
 {
     public AudioClip walkSound;
+
+    public AudioClip wallCrashSound;
     AudioSource audioSRC;
 
     public Dictionary<SoundTypes, AudioClip> clips = new Dictionary<SoundTypes, AudioClip>();
@@ -26,11 +28,11 @@ public class UnitSoundSys : MonoBehaviour
         
     }
 
-    public void PlaySound()
+    public void PlaySound(AudioClip clip)
     {
         audioSRC.pitch = 1+ Random.Range(-0.15f,0.15f);
         
-        audioSRC.clip = GlobalContentContainer.Instance.TagGameSounds[Random.Range(0,GlobalContentContainer.Instance.TagGameSounds.Count)];
-        audioSRC.PlayOneShot(GlobalContentContainer.Instance.TagGameSounds[Random.Range(0,GlobalContentContainer.Instance.TagGameSounds.Count)]);
+        //audioSRC.clip = GlobalContentContainer.Instance.TagGameSounds[Random.Range(0,GlobalContentContainer.Instance.TagGameSounds.Count)];
+        audioSRC.PlayOneShot(clip);
     }
 }

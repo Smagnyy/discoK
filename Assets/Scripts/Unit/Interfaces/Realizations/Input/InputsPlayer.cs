@@ -7,7 +7,7 @@ public class InputsPlayer : MonoBehaviour, Iinputs
 {
     public GameObject spriteGameObj;
 
-    public static event Action Counter;
+   
     
     //int possibleSteps;
     // [SerializeField]
@@ -55,7 +55,7 @@ public class InputsPlayer : MonoBehaviour, Iinputs
         
         if( dir != Vector2.zero) //possibleSteps > 0 &&
         {   
-            Counter?.Invoke();
+            TurnManager.Instance.Turn();
             return dir;
             //possibleSteps--;
             //UI_main.Instance.UpdatePossibleStepsText(possibleSteps);

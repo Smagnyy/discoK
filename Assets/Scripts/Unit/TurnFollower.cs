@@ -10,27 +10,29 @@ public class TurnFollower : MonoBehaviour
     ShowAttacks showAttacks;
     
     [SerializeField]
-    int defaultTurns =3;    
-    int turnsBeforeEnemyTurn;
+    public int defaultNumberOfTurns =3; 
+    public int currentNumberOfTurns;   
+    public int turnsBeforeStep;
     void Awake()
     {
-        TurnManager.Turn += ActivateInp;
-        turnsBeforeEnemyTurn = defaultTurns;
+        
+        currentNumberOfTurns = defaultNumberOfTurns;
+        turnsBeforeStep = currentNumberOfTurns;
     }
 
-    void ActivateInp()
+    public void ActivateInp()
     {
-        turnsBeforeEnemyTurn--;
+        turnsBeforeStep--;
 
-        if(turnsBeforeEnemyTurn<1)
+        if(turnsBeforeStep==0)
         {
             bUnit.canStep = true;
-            turnsBeforeEnemyTurn = defaultTurns;
+            turnsBeforeStep = currentNumberOfTurns;
             if(showAttacks!=null)
                 showAttacks.HideAttackPoints();
         }
 
-        if(turnsBeforeEnemyTurn-1 == 0)
+        if(turnsBeforeStep-1 == 0)
         {
             if(showAttacks!=null)
                 showAttacks.ShowAttackPoints(bUnit.iinputs.PreTurn());

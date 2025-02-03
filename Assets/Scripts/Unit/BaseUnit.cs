@@ -75,6 +75,7 @@ public class BaseUnit : MonoBehaviour
     
     void Start()
     {
+        
         iinputs = GetComponent<Iinputs>();
         walk = GetComponentsInChildren<IWalkState>().ToList();
         walkToWall = GetComponentsInChildren<IWallState>().ToList();
@@ -108,7 +109,7 @@ public class BaseUnit : MonoBehaviour
     
     void Update()
     {
-            
+        Debug.Log("Insrance" + GlobalContentContainer.Instance);
         switch(state)
         {
             case States.Idle:
@@ -149,7 +150,7 @@ public class BaseUnit : MonoBehaviour
 
             case States.Go:
                 currentTile.SetEmpty();
-                if(unitSoundSys!= null) unitSoundSys.PlaySound();
+                if(unitSoundSys!= null) unitSoundSys.PlaySound(GlobalContentContainer.Instance.TagGameSounds[Random.Range(0,GlobalContentContainer.Instance.TagGameSounds.Count)]);
                 transform.position = lerpEnd;
                 spriteLerpTransform.position = lerpStart;   
                 StartCoroutine(StaticLerpSteps.LerpStep(spriteLerpTransform, lerpStart, lerpEnd, speed));
@@ -168,6 +169,7 @@ public class BaseUnit : MonoBehaviour
             case States.Wall:
                 //StartCoroutine(StaticLerpSteps.LerpStepWithBackLocalPos(spriteLerpTransform, new Vector2(0,0), direction, speed));
                 StartCoroutine(StaticLerpSteps.LerpStepWithBack(spriteLerpTransform, lerpStart, lerpEnd, speed));
+                if(unitSoundSys!= null) unitSoundSys.PlaySound(unitSoundSys.wallCrashSound);
                 if(walkToWall.Count>0)
                 foreach (var item in walkToWall)
                 {
@@ -215,7 +217,7 @@ public class BaseUnit : MonoBehaviour
     
      public void DecreaseHP(int _damage)
     {
-        if(AnimContr != null)  AnimContr.StartAnimWithLock("GetDamage");
+        if(AnimContr != null)  AnimContr.StartAnimWithChange("GetDamage", "Idle");
         hp -= _damage;
         hBar.UpdateHealthBar(hp,maxHp);
         StartCoroutine(Effects.Shake(5, sprite));

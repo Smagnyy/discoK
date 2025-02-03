@@ -5,4 +5,5 @@ using UnityEngine;
 public static class GlobalValues 
 {
     public static bool IsPlayerAlive = true; 
+    
 }
