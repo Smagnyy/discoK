@@ -10,7 +10,7 @@ public class ShowAttacks : MonoBehaviour
     
     public void ShowAttackPoints(List<Vector2> positions)
     {
-        
+        HideAttackPoints();
 
         for (int i = 0; i < positions.Count; i++)
         {
@@ -27,5 +27,11 @@ public class ShowAttacks : MonoBehaviour
             attPoints[i].gameObject.SetActive(false);
             
         }
+    }
+
+    private void Update() 
+    {
+        
+        
     }
 }

@@ -9,6 +9,11 @@ public class InputBerserk : MonoBehaviour, Iinputs
     AudioSource audioSRC;
     TurnFollower myTurnFollower;
     
+    [SerializeField]
+    ShowAttacks showAttacks;
+
+     [SerializeField]
+    BaseUnit bUnit;
 
     int charges = 0;
 
@@ -26,22 +31,27 @@ public class InputBerserk : MonoBehaviour, Iinputs
          Vector2 selectedVec = Vector2.zero;
         if(charges < 3)
         {
+            charges++;
             if(charges == 2)
                 myTurnFollower.currentNumberOfTurns = 1;
-            charges++;
+            
             GlobalContentContainer.Instance.CreatePopUpText($"{charges}/3", PopUpPos.position);
             audioSRC.PlayOneShot(gulpSound);
         }
         
         else
         {
-            myTurnFollower.currentNumberOfTurns= 1;
+            //myTurnFollower.currentNumberOfTurns= 1;
+            //if(showAttacks!=null)
+            //    showAttacks.ShowAttackPoints(bUnit.iinputs.PreTurn());
             turnsInCharge++;
-            if(turnsInCharge > 3) 
+            if(turnsInCharge == 2)
+                myTurnFollower.currentNumberOfTurns = myTurnFollower.defaultNumberOfTurns;
+            if(turnsInCharge == 3) 
             {
                 charges = 0;
                 turnsInCharge = 0;
-                myTurnFollower.currentNumberOfTurns = myTurnFollower.defaultNumberOfTurns;
+                
             }
             Tile wherePlayer = TileGenerator.Instance.FindPlayer();
 

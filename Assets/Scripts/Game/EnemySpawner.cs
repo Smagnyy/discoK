@@ -24,7 +24,7 @@ public class EnemySpawner : MonoBehaviour
     void Awake() 
     {
         Instance = this;
-        InputsPlayer.Counter += UpdateTurnsBeforeSpawn;
+       
         
     }
 
@@ -58,7 +58,7 @@ public class EnemySpawner : MonoBehaviour
 
     }
 
-    void UpdateTurnsBeforeSpawn()
+    public void UpdateTurnsBeforeSpawn()
     {
         turnsBeforeSpawn++;
         

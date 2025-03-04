@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public enum States {Wall, Wait, Go, Idle, Hit, Raying, GoBack};
+public enum States {Wall, Wait, Walk, Idle, Hit, Raying, GoBack};
 
 
 public class BaseUnit : MonoBehaviour
@@ -44,7 +45,7 @@ public class BaseUnit : MonoBehaviour
     
     public int maxHp = 10;
 
-    float speed = 7;
+    public float speed = 7;
     
     //////////////// Стейт машина
    
@@ -54,7 +55,7 @@ public class BaseUnit : MonoBehaviour
 
     Vector2 lerpStart, lerpEnd;
 
-    public bool canStep;
+    public bool canStep; // раскомментить если что
 
     GameObject rayedObj;
 
@@ -94,7 +95,7 @@ public class BaseUnit : MonoBehaviour
 
         hBar.UpdateHealthBar(hp,maxHp);
 
-        state = States.Idle;
+        state = States.Idle; //РАСКОМЕНТИТЬ ЕСЛИ ЧТО
         
         RaycastHit2D[] res = Physics2D.RaycastAll(transform.position, Vector2.zero, 0, LayerMask.GetMask("Tile")); // 
         foreach (var item in res)
@@ -109,7 +110,7 @@ public class BaseUnit : MonoBehaviour
     
     void Update()
     {
-        Debug.Log("Insrance" + GlobalContentContainer.Instance);
+        
         switch(state)
         {
             case States.Idle:
@@ -148,7 +149,7 @@ public class BaseUnit : MonoBehaviour
                 state = newState;
             break;
 
-            case States.Go:
+            case States.Walk:
                 currentTile.SetEmpty();
                 if(unitSoundSys!= null) unitSoundSys.PlaySound(GlobalContentContainer.Instance.TagGameSounds[Random.Range(0,GlobalContentContainer.Instance.TagGameSounds.Count)]);
                 transform.position = lerpEnd;
@@ -208,16 +209,19 @@ public class BaseUnit : MonoBehaviour
     }
 
 
+    
+
+    /*
      public void ChangeState( States _state)
     {
         state = _state;
-    }
+    }*/
 
     ///////// методы персонажа
     
      public void DecreaseHP(int _damage)
     {
-        if(AnimContr != null)  AnimContr.StartAnimWithChange("GetDamage", "Idle");
+        
         hp -= _damage;
         hBar.UpdateHealthBar(hp,maxHp);
         StartCoroutine(Effects.Shake(5, sprite));
@@ -225,8 +229,11 @@ public class BaseUnit : MonoBehaviour
         {
             item.Reset();
         }
+        if(hp>0)
+            if(AnimContr != null)  AnimContr.StartAnimWithChange("GetDamage", "Idle");
         if(hp<=0)
         {
+            AnimContr.StartAnim("GetDamage");
             //if(AnimContr != null)  AnimContr.StartAnimWithLock("Death");
             //EnemySpawner.Instance.DeleteEnemyFromList(this);
             currentTile.SetEmpty();

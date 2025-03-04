@@ -30,7 +30,7 @@ public class StaticRaying : MonoBehaviour
                 {
                     //raycastedObject = ray[i].collider. GetComponent<Tile>();
                     raycastedObject = ray[i].collider.gameObject;
-                    s = States.Go;
+                    s = States.Walk;
                 }
                 else if (ray[i].collider.GetComponent<BaseUnit>() != null)
                 {

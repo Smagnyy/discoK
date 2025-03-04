@@ -56,6 +56,7 @@ public class InputsPlayer : MonoBehaviour, Iinputs
         if( dir != Vector2.zero) //possibleSteps > 0 &&
         {   
             TurnManager.Instance.Turn();
+            EnemySpawner.Instance.UpdateTurnsBeforeSpawn();
             return dir;
             //possibleSteps--;
             //UI_main.Instance.UpdatePossibleStepsText(possibleSteps);

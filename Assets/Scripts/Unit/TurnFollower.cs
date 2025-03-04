@@ -26,8 +26,9 @@ public class TurnFollower : MonoBehaviour
 
         if(turnsBeforeStep==0)
         {
-            bUnit.canStep = true;
+            bUnit.canStep = true; //РАСКОМЕНТИТЬ ЕСЛИ ЧТО
             turnsBeforeStep = currentNumberOfTurns;
+            //bUnit.StartWalk();
             if(showAttacks!=null)
                 showAttacks.HideAttackPoints();
         }
