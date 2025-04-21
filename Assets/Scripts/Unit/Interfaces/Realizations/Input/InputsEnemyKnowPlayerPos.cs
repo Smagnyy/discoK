@@ -10,14 +10,14 @@ public class InputsEnemyKnowPlayerPos : MonoBehaviour, Iinputs
 
         Tile wherePlayer = TileGenerator.Instance.FindPlayer();
 
-        Vector2 a = wherePlayer.transform.position;
+        Vector2 playerPos = wherePlayer.transform.position;
 
         List<Vector2> directions = new List<Vector2>();
 
-        if(transform.position.y < a.y) directions.Add(new Vector2(0, 1));
-        if(transform.position.y > a.y) directions.Add(new Vector2(0, -1));
-        if(transform.position.x > a.x) directions.Add(new Vector2(-1, 0));
-        if(transform.position.x < a.x) directions.Add(new Vector2(1, 0));
+        if(transform.position.y < playerPos.y) directions.Add(new Vector2(0, 1));
+        if(transform.position.y > playerPos.y) directions.Add(new Vector2(0, -1));
+        if(transform.position.x > playerPos.x) directions.Add(new Vector2(-1, 0));
+        if(transform.position.x < playerPos.x) directions.Add(new Vector2(1, 0));
 
         int selectedDir = Random.Range(0, directions.Count);
         selectedVec = directions[selectedDir];
@@ -33,14 +33,14 @@ public class InputsEnemyKnowPlayerPos : MonoBehaviour, Iinputs
 
         Tile wherePlayer = TileGenerator.Instance.FindPlayer();
 
-        Vector2 a = wherePlayer.transform.position;
+        Vector2 playerPos = wherePlayer.transform.position;
 
         List<Vector2> directions = new List<Vector2>();
 
-        if(transform.position.y < a.y) directions.Add(new Vector2(0, 1));
-        if(transform.position.y > a.y) directions.Add(new Vector2(0, -1));
-        if(transform.position.x > a.x) directions.Add(new Vector2(-1, 0));
-        if(transform.position.x < a.x) directions.Add(new Vector2(1, 0));
+        if(transform.position.y < playerPos.y) directions.Add(new Vector2(0, 1));
+        if(transform.position.y > playerPos.y) directions.Add(new Vector2(0, -1));
+        if(transform.position.x > playerPos.x) directions.Add(new Vector2(-1, 0));
+        if(transform.position.x < playerPos.x) directions.Add(new Vector2(1, 0));
 
         
 

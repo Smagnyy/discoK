@@ -11,13 +11,16 @@ public class ShowAttacks : MonoBehaviour
     public void ShowAttackPoints(List<Vector2> positions)
     {
         HideAttackPoints();
-
-        for (int i = 0; i < positions.Count; i++)
+        if(positions != null)
         {
-            attPoints[i].gameObject.SetActive(true);
-            attPoints[i].transform.localPosition = positions[i] * 100; //* 100
-            attPoints[i].SetLine(transform.position);
+            for (int i = 0; i < positions.Count; i++)
+            {
+                attPoints[i].gameObject.SetActive(true);
+                attPoints[i].transform.localPosition = positions[i] * 100; //* 100
+                attPoints[i].SetLine(transform.position);
+            }
         }
+        
     }
 
     public void HideAttackPoints()

@@ -56,6 +56,24 @@ public class TileGenerator : MonoBehaviour
         return freeTiles[selectedTile];
     }
 
+    public Tile FindTilesWithNoEffect()
+    {
+        List<Tile> freeTiles = new List<Tile>();
+
+        
+        foreach (Tile item in MAP) //foreach (Tile item in Map)
+        {
+            if(item.CheckEffect() == false)
+            {
+                freeTiles.Add(item);
+            }
+        }
+
+        int selectedTile = Random.Range(0, freeTiles.Count);
+
+        return freeTiles[selectedTile];
+    }
+
     public Tile FindPlayer()
     {
         

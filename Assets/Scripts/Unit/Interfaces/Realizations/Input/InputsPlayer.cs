@@ -29,7 +29,7 @@ public class InputsPlayer : MonoBehaviour, Iinputs
 
     public Vector2 Inp()
     {   
-        if(GlobalValues.IsPlayerAlive)
+        if(GlobalValues.IsPlayerAlive && GlobalValues.CanWalk)
         {
 
         

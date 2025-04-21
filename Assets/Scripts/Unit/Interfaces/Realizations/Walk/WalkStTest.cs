@@ -6,6 +6,6 @@ public class WalkStTest : MonoBehaviour, IWalkState
 {
     public void DoAction(Tile __tile)
     {
-        //Debug.Log("Hello World");
+        Debug.Log("TEST WALK STATE");
     }
 }

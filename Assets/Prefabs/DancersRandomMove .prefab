@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 4514305168493022715}
   - component: {fileID: 4514305168493022710}
   - component: {fileID: 4514305168493022712}
+  - component: {fileID: 6964858950114414384}
   m_Layer: 0
   m_Name: Actions
   m_TagString: Untagged
@@ -142,6 +143,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+--- !u!114 &6964858950114414384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4514305168493022714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c47ac16647013174b9a0b51ee73b4846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4514305168528633333
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,9 +482,9 @@ GameObject:
   - component: {fileID: 4514305170032367743}
   - component: {fileID: 4514305170032367742}
   - component: {fileID: 4514305170032367713}
+  - component: {fileID: 4967468071016024579}
   - component: {fileID: 4329787209002199676}
-  - component: {fileID: 4514305170032367712}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 'DancersRandomMove '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -579,6 +592,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f66a3c480aac53e46bb33194dd0745ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bodyParts: []
   currentTile: {fileID: 0}
   hBar: {fileID: 4514305169457321750}
   damage: 1
@@ -586,7 +600,30 @@ MonoBehaviour:
   sprite: {fileID: 4514305168442332276}
   spriteLerpTransform: {fileID: 4514305168528633330}
   maxHp: 10
+  speed: 7
   canStep: 0
+  objToFlip: {fileID: 0}
+  AnimContr: {fileID: 0}
+  unitSoundSys: {fileID: 0}
+--- !u!114 &4967468071016024579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4514305170032367715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 605f8170587556c4fa0d0471be6069ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canBeStunned: 0
+  directions:
+  - {x: 0, y: 1}
+  - {x: 0, y: -1}
+  - {x: 1, y: 0}
+  - {x: -1, y: 0}
+  dirsInNextTurn: []
 --- !u!114 &4329787209002199676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -601,19 +638,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bUnit: {fileID: 4514305170032367713}
   showAttacks: {fileID: 7086643332402627278}
-  defaultTurns: 3
---- !u!114 &4514305170032367712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4514305170032367715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce8a158e5e07a5f47af608f7f59bfa4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  defaultNumberOfTurns: 3
+  currentNumberOfTurns: 0
+  turnsBeforeStep: 0
 --- !u!1 &4514305170403595432
 GameObject:
   m_ObjectHideFlags: 0

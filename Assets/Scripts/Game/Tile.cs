@@ -23,8 +23,12 @@ public class Tile : MonoBehaviour
     [SerializeField]
     bool isEmpty = true;
 
+    bool hasEffect = false;
+
     SpriteRenderer sprRend;
     public Coroutine FadeAnim;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -78,5 +82,15 @@ public class Tile : MonoBehaviour
         
     }
 
+
+    public void SetEffect()
+    {
+        hasEffect = !hasEffect;
+    }
+
+    public bool CheckEffect()
+    {
+        return hasEffect;
+    }
     
 }

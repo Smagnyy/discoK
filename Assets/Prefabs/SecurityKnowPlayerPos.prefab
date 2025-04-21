@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 2545454128747490898}
   - component: {fileID: 2545454128747490899}
   - component: {fileID: -7930843113186577867}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SecurityKnowPlayerPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,6 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f66a3c480aac53e46bb33194dd0745ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bodyParts: []
   currentTile: {fileID: 0}
   hBar: {fileID: 2545454129462092581}
   damage: 1
@@ -238,7 +239,11 @@ MonoBehaviour:
   sprite: {fileID: 2545454130049960398}
   spriteLerpTransform: {fileID: 2545454127983173425}
   maxHp: 10
+  speed: 7
   canStep: 0
+  objToFlip: {fileID: 0}
+  AnimContr: {fileID: 0}
+  unitSoundSys: {fileID: 0}
 --- !u!114 &2545454128747490899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,7 +270,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bUnit: {fileID: 2545454128747490898}
   showAttacks: {fileID: 8428200446085091341}
-  defaultTurns: 3
+  defaultNumberOfTurns: 3
+  currentNumberOfTurns: 0
+  turnsBeforeStep: 0
 --- !u!1 &2545454128951915846
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,6 +284,7 @@ GameObject:
   - component: {fileID: 2545454128951915841}
   - component: {fileID: 2545454128951915842}
   - component: {fileID: 2545454128951915840}
+  - component: {fileID: 4301222239134396935}
   m_Layer: 0
   m_Name: Actions
   m_TagString: Untagged
@@ -324,6 +332,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
+--- !u!114 &4301222239134396935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2545454128951915846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ea0b6af5c02d5e4fa86a81eb0b2eb66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2545454129462092602
 GameObject:
   m_ObjectHideFlags: 0

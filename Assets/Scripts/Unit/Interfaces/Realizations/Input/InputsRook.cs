@@ -29,16 +29,8 @@ public class InputsRook : MonoBehaviour, Iinputs
     }
 
 
-     bool canStep = false;
+  
 
-    public void CanStep()
-    {
-        canStep = true;
-    }
-   // private void Awake() 
-   // {
-   //     TurnManager.Turn += CanStep;
-   // }
 
     Vector2 GetDir()
     {

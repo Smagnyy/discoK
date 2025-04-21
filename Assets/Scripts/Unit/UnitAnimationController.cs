@@ -9,7 +9,7 @@ public class UnitAnimationController : MonoBehaviour
 
     bool isLocked;
 
-    Coroutine currentAnim;
+    public Coroutine currentAnim;
     Tween punch;
 
     // Start is called before the first frame update
@@ -31,12 +31,12 @@ public class UnitAnimationController : MonoBehaviour
 
     public void StartAnimWithChange(string animName, string nextAnimName)
     {
-        if(!isLocked)
-        {
+        //if(!isLocked)
+        //{
             if(currentAnim!= null)StopCoroutine(currentAnim);
 
             currentAnim = StartCoroutine(AnimCoroutineWithChange(animName, nextAnimName));
-        }
+        //}
             
     }
     

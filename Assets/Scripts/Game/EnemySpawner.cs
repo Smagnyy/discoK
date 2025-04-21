@@ -7,8 +7,8 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public static EnemySpawner Instance;
-    //int waves = 3;
-    int currentWave = 1;
+   
+   
 
     public List<BaseUnit> enemyPrefs;
 
@@ -16,7 +16,7 @@ public class EnemySpawner : MonoBehaviour
 
     public Dictionary<BaseUnit, int> enemiesInWave = new Dictionary<BaseUnit, int>();
 
-    Coroutine StartedWave = null;
+    public Coroutine StartedWave = null;
 
     int turnsBeforeSpawn;
    
@@ -38,25 +38,7 @@ public class EnemySpawner : MonoBehaviour
 
 
     
-    void Update()
-    {
-        
-        switch(currentWave)
-        {
-            case 1:
-            if(StartedWave == null)
-                StartedWave = StartCoroutine(Wave());            
-            break;
-            case 2:
-            Wave();
-            break;
-            case 3:
-            Wave();
-            break;
-        }
-        
-
-    }
+   
 
     public void UpdateTurnsBeforeSpawn()
     {
@@ -70,8 +52,13 @@ public class EnemySpawner : MonoBehaviour
        
     }
 
+    public void BeginWave()
+    {
+        if(StartedWave == null)
+                StartedWave = StartCoroutine(Wave());        
+    }
 
-    IEnumerator Wave()
+    public IEnumerator Wave()
     {
         foreach (var item in enemiesInWave)
         {
@@ -94,9 +81,10 @@ public class EnemySpawner : MonoBehaviour
             yield return null;
             Debug.Log("wave!");
         }
-        Debug.Log("CONGRATULATIONS!");
-        UI_main.Instance.ShowCongratsScreen();
-        currentWave++;
+        //Debug.Log("CONGRATULATIONS!");
+        //UI_main.Instance.ShowCongratsScreen();
+        StartCoroutine(MainGC.Instance.EndOfWave());
+        StartedWave = null;
     }
 
     

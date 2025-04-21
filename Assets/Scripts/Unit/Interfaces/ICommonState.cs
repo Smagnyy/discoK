@@ -6,5 +6,5 @@ public interface ICommonState
 {
     void DoAction(BaseUnit _bUnit);
 
-    void Reset();
+    void Redo(BaseUnit _bUnit);
 }

@@ -31,7 +31,8 @@ public class DeathStPlayer : MonoBehaviour, IDeathState
         cam.DOOrthoSize(1.75f, 0.5f);
         //cam.transform.position = Player.Instance.transform.position + new Vector3(0,0.6f, -10);
         cam.transform.DOMove(Player.Instance.transform.position + new Vector3(bUnit.objToFlip.localScale.x < 0? 0.4f : -0.4f,0.8f, -10), 0.5f);
-        yield return bUnit.AnimContr.AnimCoroutine("Death");
+        bUnit.AnimContr.StopAllCoroutines();
+        yield return bUnit.AnimContr.AnimCoroutineWithChange("Death", "DeathJustLie");
 
         Time.timeScale = 1;
         StartCoroutine(UI_main.Instance.loseScreenSCR.ShowLoseScreen());

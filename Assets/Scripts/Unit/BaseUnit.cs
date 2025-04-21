@@ -26,7 +26,11 @@ public class BaseUnit : MonoBehaviour
     List<IHitState> hit;
 
     List<IDeathState> deathStates;
-        
+
+    List<ITakeDamageState> takeDamageStates;
+
+    List<IChangeDamageState> changeDamageStates;
+
     public Iinputs iinputs;
 
     public Tile currentTile;
@@ -76,15 +80,9 @@ public class BaseUnit : MonoBehaviour
     
     void Start()
     {
-        
         iinputs = GetComponent<Iinputs>();
-        walk = GetComponentsInChildren<IWalkState>().ToList();
-        walkToWall = GetComponentsInChildren<IWallState>().ToList();
-        hit = GetComponentsInChildren<IHitState>().ToList();
-        commons = GetComponentsInChildren<ICommonState>().ToList();
-        deathStates = GetComponentsInChildren<IDeathState>().ToList();
-
-
+        IniitializeStates();
+        
         //audioSrc = GetComponent<AudioSource>();
         //animator = GetComponent<Animator>();
         AnimContr = GetComponent<UnitAnimationController>();
@@ -222,18 +220,35 @@ public class BaseUnit : MonoBehaviour
      public void DecreaseHP(int _damage)
     {
         
+        if(changeDamageStates.Count > 0)
+            foreach (var item in changeDamageStates)
+            {
+                _damage = item.DoAction(_damage);
+            }
+
         hp -= _damage;
         hBar.UpdateHealthBar(hp,maxHp);
+
+        if(takeDamageStates.Count > 0)
+            foreach (var item in takeDamageStates)
+            {
+                item.DoAction(this);
+            }
+
         StartCoroutine(Effects.Shake(5, sprite));
-        foreach (var item in commons)
-        {
-            item.Reset();
-        }
+        if(commons.Count > 0)
+            foreach (var item in commons)
+            {
+                item.Redo(this);
+            }
         if(hp>0)
-            if(AnimContr != null)  AnimContr.StartAnimWithChange("GetDamage", "Idle");
-        if(hp<=0)
         {
-            AnimContr.StartAnim("GetDamage");
+            if(AnimContr != null)  AnimContr.StartAnimWithChange("GetDamage", "Idle");
+            Debug.Log("сработало hp>0");
+        }            
+        else if(hp<=0)
+        {
+            //AnimContr.StartAnim("GetDamage");
             //if(AnimContr != null)  AnimContr.StartAnimWithLock("Death");
             //EnemySpawner.Instance.DeleteEnemyFromList(this);
             currentTile.SetEmpty();
@@ -259,6 +274,17 @@ public class BaseUnit : MonoBehaviour
                 objToFlip.localScale = new Vector3(-1,1,1);//sprite.GetComponent<SpriteRenderer>().flipX = true;
         }
         
+    }
+
+    public void IniitializeStates()
+    {
+        walk = GetComponentsInChildren<IWalkState>().ToList();
+        walkToWall = GetComponentsInChildren<IWallState>().ToList();
+        hit = GetComponentsInChildren<IHitState>().ToList();
+        commons = GetComponentsInChildren<ICommonState>().ToList();
+        deathStates = GetComponentsInChildren<IDeathState>().ToList();
+        takeDamageStates = GetComponentsInChildren<ITakeDamageState>().ToList();
+        changeDamageStates = GetComponentsInChildren<IChangeDamageState>().ToList();
     }
     
 }

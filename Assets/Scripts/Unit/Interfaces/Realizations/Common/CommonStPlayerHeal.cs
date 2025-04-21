@@ -19,11 +19,11 @@ public class CommonStPlayerHeal : MonoBehaviour, ICommonState
         {
             _bUnit.hp++;
             _bUnit.hBar.UpdateHealthBar(_bUnit.hp, _bUnit.maxHp);
-            Reset();
+            Redo(_bUnit);
         }
     }
     
-    public void Reset()
+    public void Redo(BaseUnit _bUnit)
     {
         counter = 0;
     }

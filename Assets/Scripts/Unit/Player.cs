@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public int maxNumberOfSteps;
     public List<Tile> OwnedTiles = new List<Tile>();
     
-     
+    public GameObject ActionsContainer;
 
     private void Awake() 
     {

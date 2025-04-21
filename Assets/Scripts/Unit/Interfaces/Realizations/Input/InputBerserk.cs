@@ -9,8 +9,7 @@ public class InputBerserk : MonoBehaviour, Iinputs
     AudioSource audioSRC;
     TurnFollower myTurnFollower;
     
-    [SerializeField]
-    ShowAttacks showAttacks;
+    
 
      [SerializeField]
     BaseUnit bUnit;
@@ -32,37 +31,36 @@ public class InputBerserk : MonoBehaviour, Iinputs
         if(charges < 3)
         {
             charges++;
-            if(charges == 2)
-                myTurnFollower.currentNumberOfTurns = 1;
+            if(charges == 3)
+                myTurnFollower.ChangeNumberOfTurns(1);
             
             GlobalContentContainer.Instance.CreatePopUpText($"{charges}/3", PopUpPos.position);
             audioSRC.PlayOneShot(gulpSound);
-        }
-        
+        }        
         else
         {
-            //myTurnFollower.currentNumberOfTurns= 1;
+            
             //if(showAttacks!=null)
             //    showAttacks.ShowAttackPoints(bUnit.iinputs.PreTurn());
             turnsInCharge++;
-            if(turnsInCharge == 2)
-                myTurnFollower.currentNumberOfTurns = myTurnFollower.defaultNumberOfTurns;
+           
             if(turnsInCharge == 3) 
             {
+                myTurnFollower.ChangeNumberOfTurns(myTurnFollower.defaultNumberOfTurns);
                 charges = 0;
                 turnsInCharge = 0;
                 
             }
             Tile wherePlayer = TileGenerator.Instance.FindPlayer();
 
-            Vector2 a = wherePlayer.transform.position;
+            Vector2 playerPos = wherePlayer.transform.position;
 
             List<Vector2> directions = new List<Vector2>();
 
-            if(transform.position.y < a.y) directions.Add(new Vector2(0, 1));
-            if(transform.position.y > a.y) directions.Add(new Vector2(0, -1));
-            if(transform.position.x > a.x) directions.Add(new Vector2(-1, 0));
-            if(transform.position.x < a.x) directions.Add(new Vector2(1, 0));
+            if(transform.position.y < playerPos.y) directions.Add(new Vector2(0, 1));
+            if(transform.position.y > playerPos.y) directions.Add(new Vector2(0, -1));
+            if(transform.position.x > playerPos.x) directions.Add(new Vector2(-1, 0));
+            if(transform.position.x < playerPos.x) directions.Add(new Vector2(1, 0));
 
             int selectedDir = Random.Range(0, directions.Count);
             selectedVec = directions[selectedDir];
@@ -87,12 +85,12 @@ public class InputBerserk : MonoBehaviour, Iinputs
         {
              Tile wherePlayer = TileGenerator.Instance.FindPlayer();
 
-            Vector2 a = wherePlayer.transform.position;
+            Vector2 playerPos = wherePlayer.transform.position;
 
-            if(transform.position.y < a.y) directions.Add(new Vector2(0, 1));
-            if(transform.position.y > a.y) directions.Add(new Vector2(0, -1));
-            if(transform.position.x > a.x) directions.Add(new Vector2(-1, 0));
-            if(transform.position.x < a.x) directions.Add(new Vector2(1, 0));
+            if(transform.position.y < playerPos.y) directions.Add(new Vector2(0, 1));
+            if(transform.position.y > playerPos.y) directions.Add(new Vector2(0, -1));
+            if(transform.position.x > playerPos.x) directions.Add(new Vector2(-1, 0));
+            if(transform.position.x < playerPos.x) directions.Add(new Vector2(1, 0));
         }
 
        
