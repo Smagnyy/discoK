@@ -58,6 +58,11 @@ public class MainGC : MonoBehaviour
         }
     }
 
+    public void Test()
+    {
+        Debug.Log("а вот прокинулось!");
+    }
+
 
 
     IEnumerator GameCycle()

@@ -9,7 +9,7 @@ public enum States {Wall, Wait, Walk, Idle, Hit, Raying, GoBack};
 
 public class BaseUnit : MonoBehaviour
 {
-
+    List<IBehavior> behaviors = new List<IBehavior>();
     public List<SpriteRenderer> bodyParts;
 
     //////////// Звук
@@ -80,6 +80,14 @@ public class BaseUnit : MonoBehaviour
     
     void Start()
     {
+        behaviors.Add(new BehaviorHeal());
+        behaviors.Add(new BehaviorSetFire());
+
+        foreach (var item in behaviors)
+        {
+           item.Action(this);
+        }
+        
         iinputs = GetComponent<Iinputs>();
         IniitializeStates();
         
@@ -98,7 +106,7 @@ public class BaseUnit : MonoBehaviour
         RaycastHit2D[] res = Physics2D.RaycastAll(transform.position, Vector2.zero, 0, LayerMask.GetMask("Tile")); // 
         foreach (var item in res)
         {
-            Debug.Log(" нашел " +item.transform);
+            //Debug.Log(" нашел " +item.transform);
         }
         
         currentTile = res[0].transform.GetComponent<Tile>();
